@@ -3,18 +3,26 @@ from django.utils.translation import gettext_lazy as _
 
 from . import managers
 
+
 class Interest(models.Model):
-    name = models.CharField(max_length=80, help_text=_("short description of interest name"))
+    name = models.CharField(
+        max_length=80, help_text=_("Short description of interest name")
+    )
     description = models.TextField(max_length=200)
 
+
 class Channel(models.Model):
-    name = models.CharField(max_length=80,
-        help_text=_("The channel Character sequence or name")
+    name = models.CharField(
+        max_length=80, help_text=_("The channel Character sequence or name")
     )
-    interests = models.ManyToManyField(Interest, blank=True, related_name="channels",
-        help_text=_("Interests asscociated with this channel")
+    interests = models.ManyToManyField(
+        Interest,
+        blank=True,
+        related_name="channels",
+        help_text=_("Interests associated with this channel"),
     )
     number_of_users = models.IntegerField(default=0)
+
 
 class Message(models.Model):
     author = models.CharField(max_length=200, help_text=_("The author of this message"))
@@ -22,7 +30,9 @@ class Message(models.Model):
     timestamp = models.DateTimeField(
         auto_now_add=True, help_text=_("The time at which the message was sent at")
     )
-    channel = models.ForeignKey(Channel, null=True, related_name="messages", on_delete=models.CASCADE)
+    channel = models.ForeignKey(
+        Channel, null=True, related_name="messages", on_delete=models.CASCADE
+    )
 
     objects = managers.MessageManager()
 
