@@ -1,14 +1,17 @@
 import React from "react";
 import Avatar from "@material-ui/core/Avatar";
+import TimeAgo from "javascript-time-ago";
+import en from "javascript-time-ago/locale/en";
 
 export default function Message(props) {
   const currentUser = props.username;
   const getTime = (time) => {
-    return Math.round(
-      (new Date().getTime() - new Date(time).getTime()) / 60000
-    );
+    TimeAgo.addLocale(en);
+    const timeAgo = new TimeAgo("en-US");
+    return timeAgo.format(new Date(time));
   };
-  return props.messages.map((message, i) => (
+
+  return props.messages.map((message) => (
     <div key={message.id} id={message.id} className={`flex flex-col my-5`}>
       <div
         className={`flex flex-col ${
@@ -37,7 +40,7 @@ export default function Message(props) {
             <small
               className={message.author === currentUser ? "sent" : "replies"}
             >
-              {getTime(message.timestamp)} minutes ago
+              {getTime(message.timestamp)}
             </small>
           </div>
         </div>
