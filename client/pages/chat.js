@@ -1,7 +1,7 @@
 import React from "react";
 
-import App from '../src/components/chat/App.js'
-import Layout from '../src/components/Layout'
+import App from "../src/components/chat/App.js";
+import Layout from "../src/components/Layout";
 
 export default function Home() {
   return (
