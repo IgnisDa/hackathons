@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography'
 export default function Banner() {
   return (
     <React.Fragment>
-      <Typography variant="div" className="uppercase transition-colors duration-300 select-none text-blurple text-7xl md:text-8xl xl:text-9xl font-kiwi hover:text-indigo-600">
+      <Typography variant="h1" className="uppercase transition-colors duration-300 select-none text-blurple text-7xl md:text-8xl xl:text-9xl hover:text-indigo-600">
         Salve
       </Typography>
       <Link href={{ pathname: "survey", query: { question: 1 } }}>
