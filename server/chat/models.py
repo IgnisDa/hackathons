@@ -10,6 +10,9 @@ class Interest(models.Model):
     )
     description = models.TextField(max_length=200)
 
+    def __str__(self):
+        return f"{self.name}"
+
 
 class Channel(models.Model):
     name = models.CharField(
@@ -22,6 +25,9 @@ class Channel(models.Model):
         help_text=_("Interests associated with this channel"),
     )
     number_of_users = models.IntegerField(default=0)
+
+    def __str__(self):
+        return f"{self.name}"
 
 
 class Message(models.Model):
