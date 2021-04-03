@@ -1,10 +1,9 @@
 import React from "react";
-import Avatar from "@material-ui/core/Avatar";
 import TextField from "@material-ui/core/TextField";
 import WebSocketInstance from "../../websocket.js";
 import Typography from "@material-ui/core/Typography";
 import styles from "../../../styles/Chat.module.css";
-import Messages from "./Messages"
+import Messages from "./Messages";
 
 class Chat extends React.Component {
   constructor(props) {
@@ -22,8 +21,6 @@ class Chat extends React.Component {
       );
       WebSocketInstance.fetchMessages(localStorage.getItem("channel"));
     });
-
-
   }
   chatContainer = React.createRef();
 
@@ -35,7 +32,6 @@ class Chat extends React.Component {
     } else {
       this.setState({ username: username });
     }
-
   }
 
   waitForSocketConnection(callback) {
@@ -89,12 +85,12 @@ class Chat extends React.Component {
     const messages = this.state.messages;
 
     return (
-      <main id="all-chats" className="flex items-center  h-screen">
+      <main id="all-chats" className="flex items-center h-screen">
         <div className="flex flex-col items-center justify-center w-full py-3 h-5/6">
           <Typography
             variant="h2"
             fontWeight="bold"
-            className="py-4 tracking-widest uppercase font-bold"
+            className="py-4 font-bold tracking-widest uppercase"
           >
             {this.props.roomName}
           </Typography>
@@ -102,9 +98,11 @@ class Chat extends React.Component {
             <ul
               ref={this.chatContainer}
               id="chat-log"
-              className={`flex-grow w-full overflow-auto px-3 sm:px-7 md:px-10 ${styles.scroll}`}
+              className={`flex-grow w-full overflow-auto px-3 sm:px-7 md:px-10 ${styles.scroll} ${styles.smoothScroll}`}
             >
-              {messages && <Messages username={this.state.username} messages={messages} />}
+              {messages && (
+                <Messages username={this.state.username} messages={messages} />
+              )}
             </ul>
             <form onSubmit={this.sendMessageHandler}>
               <TextField
