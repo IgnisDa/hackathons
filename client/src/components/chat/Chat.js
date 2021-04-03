@@ -102,7 +102,7 @@ class Chat extends React.Component {
             <Avatar
               src={`https://placedog.net/500?id=${message.author}`}
               alt={`${message.author}-image`}
-              className="flex-none "
+              className="flex-none"
             />
             <div className="flex-grow">
               <div className="text-xs text-justify md:text-base lg:text-lg sm:text-sm">
