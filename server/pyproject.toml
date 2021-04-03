@@ -24,6 +24,7 @@ flake8 = "^3.8.4"
 django-extensions = "^3.1.0"
 black = {version = "^20.8b1", allow-prereleases = true}
 mypy = "^0.800"
+jupyterlab = "^3.0.12"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
