@@ -50,7 +50,6 @@ class ChatConsumer(WebsocketConsumer):
     # Receive message from WebSocket
     def receive(self, text_data):
         data = json.loads(text_data)
-        print(text_data)
         self.commands[data["command"]](self, data)
 
     def send_chat_message(self, message):
