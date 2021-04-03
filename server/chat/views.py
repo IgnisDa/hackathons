@@ -1,5 +1,8 @@
+import json
+
 from django.http import JsonResponse
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
 
 from . import models, utils
 
@@ -12,14 +15,17 @@ def room(request, room_name):
     return render(request, "chat/room.html", {"room_name": room_name})
 
 
+@csrf_exempt
 def induct_view(request):
-    data = request.data
+    data = json.loads(request.body.decode())
     interests = data["interests"]
     possible_channels = []
     possible_channels = [
-        [j for j in set(models.Interest.objects.get(pk=i).channels)] for i in interests
+        [j for j in set(models.Interest.objects.get(name=i).channels.all())]
+        for i in interests
     ]
-    channel = utils.most_frequent(possible_channels)
+    print(possible_channels)
+    channel = utils.most_frequent((possible_channels))
     print(possible_channels)
     return JsonResponse({channel: channel})
 
