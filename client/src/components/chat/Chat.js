@@ -51,7 +51,7 @@ class Chat extends React.Component {
   sendMessageHandler = (e) => {
     e.preventDefault();
     const messageObject = {
-      from: "admin",
+      from: localStorage.getItem('username'),
       content: this.state.message,
     };
     WebSocketInstance.newChatMessage(messageObject);
@@ -67,7 +67,14 @@ class Chat extends React.Component {
   };
 
   renderMessages = (messages) => {
-    const currentUser = "admin";
+
+    if(localStorage.getItem('username')){
+      const currentUser = localStorage.getItem('username');
+    }
+    else{
+      const currentUser = "anonymous"
+    }
+
     return messages.map((message, i) => (
       <div
         key={message.id}
