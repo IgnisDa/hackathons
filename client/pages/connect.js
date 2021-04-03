@@ -2,25 +2,24 @@ import React from "react";
 import Layout from "../src/components/Layout";
 import TextField from "@material-ui/core/TextField";
 import Container from "@material-ui/core/Container";
-
+import fetch from "node-fetch";
+import { HOST_URL } from "../settings";
 export default class ConnectView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       username: "",
       interests: [],
-      allInterests: [
-        "first",
-        "second",
-        "third",
-        "fourth",
-        "fifth",
-        "sixth",
-        "seventh",
-        "eighth",
-        "ninth",
-      ],
+      allInterests: [],
     };
+  }
+
+  async componentDidMount() {
+    const interests = await fetch(
+      `${HOST_URL}/chat/interests/`
+    ).then((response) => response.json());
+    console.log();
+    this.setState({ allInterests: interests });
   }
 
   handleInputChange = (event) => {
