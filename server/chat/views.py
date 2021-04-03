@@ -22,3 +22,8 @@ def induct_view(request):
     channel = utils.most_frequent(possible_channels)
     print(possible_channels)
     return JsonResponse({channel: channel})
+
+
+def get_all_interests_view(request):
+    qs = list(map(lambda q: q[1], list(models.Interest.objects.all().values_list())))
+    return JsonResponse(qs, safe=False)
