@@ -1,7 +1,7 @@
-import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
+import React from "react";
+import Avatar from "@material-ui/core/Avatar";
 
-export default function Message(props){
+export default function Message(props) {
   const currentUser = props.username;
   const getTime = (time) => {
     return Math.round(
@@ -26,7 +26,7 @@ export default function Message(props){
           }`}
         >
           <Avatar
-            src={`https://placedog.net/500?id=${message.author}`}
+            src={`https://picsum.photos/seed/${message.author}/200/300`}
             alt={`${message.author}-image`}
             className="flex-none"
           />
