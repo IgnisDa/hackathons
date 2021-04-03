@@ -1,8 +1,8 @@
-.log::-webkit-scrollbar {
+.scroll::-webkit-scrollbar {
   width: 12px;
   @apply bg-dark-but-not-black;
 }
 
-.log::-webkit-scrollbar-thumb {
+.scroll::-webkit-scrollbar-thumb {
   @apply rounded-lg bg-spotify-green;
 }
