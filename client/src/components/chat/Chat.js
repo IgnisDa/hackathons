@@ -81,22 +81,20 @@ class Chat extends React.Component {
   renderMessages = (messages) => {
     const currentUser = this.state.username;
     return messages.map((message, i) => (
-      <div
-        key={message.id}
-        id={message.id}
-        className={`my-5 flex flex-col ${
-          message.author === currentUser ? "justify-end" : "justify-start"
-        }`}
-      >
-        <div className="inline-block">
-          <div className="inline-block px-3 py-1 bg-purple-800 rounded-t-lg">
+      <div key={message.id} id={message.id} className={`flex flex-col my-5`}>
+        <div
+          className={`flex flex-col ${
+            message.author === currentUser ? "items-end" : "items-start"
+          }`}
+        >
+          <div className="w-[fit-content] px-3 py-1 bg-purple-800 rounded-t-lg ">
             {message.author}
           </div>
           <div
-            className={`flex justify-between space-x-2 sm:space-x-3 md:space-x-5 bg-red-900 w-4/5 sm:w-3/5 md:w-2/5 rounded-r-xl p-3 shadow-2xl ${
+            className={`flex justify-between space-x-2 sm:space-x-3 md:space-x-5 bg-red-900 w-4/5 sm:w-3/5 md:w-2/5 p-3 shadow-2xl ${
               message.author === currentUser
-                ? "flex-row-reverse space-x-reverse bg-blue-900"
-                : "flex-row bg-indigo-900"
+                ? "flex-row-reverse space-x-reverse bg-blue-900 rounded-l-xl"
+                : "flex-row bg-indigo-900 rounded-r-xl"
             }`}
           >
             <Avatar
