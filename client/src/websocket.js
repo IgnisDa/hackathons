@@ -14,18 +14,20 @@ class WebSocketService {
   }
 
   connect() {
-    const path = 'ws://127.0.0.1:8000/ws/chat/test/';
+    const path = "ws://127.0.0.1:8000/ws/chat/test/";
     this.socketRef = new WebSocket(path);
     this.socketRef.onopen = () => {
-      console.log('WebSocket open');
+      console.log("WebSocket open");
     };
-    this.socketNewMessage(JSON.stringify({
-      command: 'fetch_messages'
-    }));
-    this.socketRef.onmessage = e => {
+    this.socketNewMessage(
+      JSON.stringify({
+        command: "fetch_messages",
+      })
+    );
+    this.socketRef.onmessage = (e) => {
       this.socketNewMessage(e.data);
     };
-    this.socketRef.onerror = e => {
+    this.socketRef.onerror = (e) => {
       console.log(e.message);
     };
     this.socketRef.onclose = () => {
@@ -40,46 +42,46 @@ class WebSocketService {
     if (Object.keys(this.callbacks).length === 0) {
       return;
     }
-    if (command === 'messages') {
+    if (command === "messages") {
       this.callbacks[command](parsedData.messages);
     }
-    if (command === 'new_message') {
+    if (command === "new_message") {
       this.callbacks[command](parsedData.message);
     }
   }
 
   fetchMessages(username) {
-    this.sendMessage({ command: 'fetch_messages', username: username });
+    this.sendMessage({ command: "fetch_messages", username: username });
   }
 
   newChatMessage(message) {
-    this.sendMessage({ command: 'new_message', from: message.from, message: message.content });
+    this.sendMessage({
+      command: "new_message",
+      from: message.from,
+      message: message.content,
+    });
   }
 
   addCallbacks(messagesCallback, newMessageCallback) {
-    this.callbacks['messages'] = messagesCallback;
-    this.callbacks['new_message'] = newMessageCallback;
+    this.callbacks["messages"] = messagesCallback;
+    this.callbacks["new_message"] = newMessageCallback;
   }
 
   sendMessage(data) {
     try {
       this.socketRef.send(JSON.stringify({ ...data }));
-    }
-    catch(err) {
+    } catch (err) {
       console.log(err.message);
     }
   }
 
   state() {
-    if (this.socketRef !== null) {
+    if (this.socketRef) {
       return 1;
-    }
-    else{
+    } else {
       return 0;
     }
-
   }
-
 }
 
 const WebSocketInstance = WebSocketService.getInstance();
