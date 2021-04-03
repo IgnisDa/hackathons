@@ -2,8 +2,11 @@ import React from "react";
 import Layout from "../src/components/Layout";
 import TextField from "@material-ui/core/TextField";
 import Container from "@material-ui/core/Container";
+import Button from "@material-ui/core/Button";
 import fetch from "node-fetch";
 import { HOST_URL } from "../settings";
+import axios from "axios";
+
 export default class ConnectView extends React.Component {
   constructor(props) {
     super(props);
@@ -42,6 +45,17 @@ export default class ConnectView extends React.Component {
     }
   }
 
+  submitInterests = () => {
+    const interests = this.state.interests;
+    axios
+      .post(`${HOST_URL}/chat/induct/`, {
+        interests: interests,
+      })
+      .then((res) => {
+        console.log(res);
+      });
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -63,23 +77,24 @@ export default class ConnectView extends React.Component {
                 autoComplete="off"
               />
             </form>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4">
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
               {this.state.allInterests.map((element, index) => (
                 <div
                   data-attribute={`${element}`}
                   key={index}
                   id={`choice-${index}`}
                   onClick={() => this.handleSelect(index)}
-                  className={
+                  className={`cursor-pointer border ${
                     this.state.interests.includes(element)
                       ? "text-green-300"
                       : "text-red-900"
-                  }
+                  }`}
                 >
                   {element}
                 </div>
               ))}
             </div>
+            <Button onClick={this.submitInterests}>Next</Button>
           </Container>
         </Layout>
       </React.Fragment>
