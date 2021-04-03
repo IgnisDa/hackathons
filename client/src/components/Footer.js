@@ -40,12 +40,7 @@ export default function Footer(props){
       <React.Fragment>
       {/* Footer */}
       <footer className={clsx(classes.footer,  (classes.sticky && props.sticky  ? classes.sticky : ""), (classes.bright && props.bright  ? classes.bright : ""))}>
-        <Typography variant="h6" align="center" gutterBottom>
-          Footer
-        </Typography>
-        <Typography variant="subtitle1" align="center" component="p">
-          Something here to give the footer a purpose!
-        </Typography>
+        
         <Copyright />
       </footer>
       {/* End footer */}
