@@ -68,7 +68,7 @@ export default class ConnectView extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <Layout short>
+        <Layout short subtitle="Connect">
           <div className="flex flex-col items-center justify-center h-screen w-full">
             <div className="w-4/5">
               <h6>Select any name for yourself and any of he oprtions below that you relate to, or think that you might go through.</h6>

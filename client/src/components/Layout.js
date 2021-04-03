@@ -11,7 +11,7 @@ export default class Layout extends React.Component {
     return (
       <React.Fragment>
         <Head>
-          <title>Salve</title>
+          <title>Salve - {this.props.subtitle}</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
 

@@ -10,7 +10,7 @@ export default function ChatRoom() {
 
   return (
     <React.Fragment>
-      <Layout noFooter>
+      <Layout noFooter subtitle="Support Room">
         <App roomName={roomName} />
       </Layout>
     </React.Fragment>
