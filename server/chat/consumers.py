@@ -9,7 +9,7 @@ from .models import Message, Channel
 class ChatConsumer(WebsocketConsumer):
     def fetch_messages(self, data):
         try:
-            messages = Channel.objects.get(name=data['channelname']).messages.all()
+            messages = Channel.objects.get(name=data['channelname']).messages.all()[::-1]
         except:
             messages = Message.objects.get_last_30_messages()
         content = {"command": "messages", "messages": self.messages_to_json(messages)}
