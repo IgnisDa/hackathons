@@ -2,6 +2,7 @@ import React from "react";
 import Avatar from "@material-ui/core/Avatar";
 import TextField from "@material-ui/core/TextField";
 import WebSocketInstance from "../../websocket.js";
+import Typography from '@material-ui/core/Typography'
 
 class Chat extends React.Component {
   constructor(props) {
@@ -103,31 +104,34 @@ class Chat extends React.Component {
   render() {
     const messages = this.state.messages;
     return (
-      <main id="all-chats" className="flex items-center h-screen">
-        <div className="flex flex-col items-center justify-center w-full py-3 h-4/6">
-          <div className="flex flex-col flex-grow w-4/5 h-full">
-            <ul id="chat-log" className="flex-grow overflow-auto">
-              {messages && this.renderMessages(messages)}
-            </ul>
-            <form onSubmit={this.sendMessageHandler}>
-              <TextField
-                id="outlined-basic"
-                onChange={this.messageChangeHandler}
-                label="Send message"
-                variant="standard"
-                value={this.state.message}
-                required
-                type="text"
-                placeholder="Write your message..."
-                className="flex-none text-black"
-                fullWidth
-                margin="normal"
-                autoComplete="off"
-              />
-            </form>
+
+        <main id="all-chats" className="flex items-center h-screen">
+          <Typography variant="h5">{this.props.roomName}</Typography>
+          <div className="flex flex-col items-center justify-center w-full py-3 h-4/6">
+            <div className="flex flex-col flex-grow w-4/5 h-full">
+              <ul id="chat-log" className="flex-grow overflow-auto">
+                {messages && this.renderMessages(messages)}
+              </ul>
+              <form onSubmit={this.sendMessageHandler}>
+                <TextField
+                  id="outlined-basic"
+                  onChange={this.messageChangeHandler}
+                  label="Send message"
+                  variant="standard"
+                  value={this.state.message}
+                  required
+                  type="text"
+                  placeholder="Write your message..."
+                  className="flex-none text-black"
+                  fullWidth
+                  margin="normal"
+                  autoComplete="off"
+                />
+              </form>
+            </div>
           </div>
-        </div>
-      </main>
+        </main>
+
     );
   }
 }
