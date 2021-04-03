@@ -1,43 +1,50 @@
 import React from "react";
-import clsx from "clsx";
 import Layout from "../src/components/Layout";
 import TextField from "@material-ui/core/TextField";
 import Container from "@material-ui/core/Container";
-import Grid from "@material-ui/core/Grid";
-import Paper from '@material-ui/core/Paper'
-import FormControl from '@material-ui/core/FormControl'
-import FormGroup from '@material-ui/core/FormGroup'
-import Checkbox from '@material-ui/core/Checkbox'
-import FormLabel from '@material-ui/core/FormLabel'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
-
 
 export default class ConnectView extends React.Component {
-    constructor(props){
-      super(props);
-      this.state = {
-        username: "",
-        interests: [],
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: "",
+      interests: [],
+      allInterests: [
+        "first",
+        "second",
+        "third",
+        "fourth",
+        "fifth",
+        "sixth",
+        "seventh",
+        "eighth",
+        "ninth",
+      ],
+    };
+  }
 
-      }
+  handleInputChange = (event) => {
+    this.setState({
+      username: event.target.value,
+    });
+  };
+  handleSelect(index) {
+    const interest = this.state.allInterests[index];
+    if (!this.state.interests.includes(interest)) {
+      this.setState((state) => ({
+        interests: [...state.interests, interest],
+      }));
+    } else {
+      let arr = this.state.interests;
+      arr = arr.filter((item) => item !== interest);
+      this.setState(() => ({
+        interests: arr,
+      }));
     }
+  }
 
-    handleInputChange = (event) =>{
-      this.setState({
-        username: event.target.value
-      })
-    }
-    handleSelect = (e) => {
-      if (!this.state.interests.includes(e.target.dataset.value)){
-        this.setState(state => ({
-          interests: [...state.interests, e.target.dataset.value],
-        }))
-      }
-    }
-
-    render(){
-      var allInterests = ["1", "2", "3"]
-      return (
+  render() {
+    return (
       <React.Fragment>
         <Layout short>
           <Container>
@@ -57,19 +64,23 @@ export default class ConnectView extends React.Component {
                 autoComplete="off"
               />
             </form>
-            <FormControl required component="fieldset" >
-              <FormLabel component="legend">Pick two</FormLabel>
-              <FormGroup>
-                {allInterests.map((i) => {
-                  <FormControlLabel
-                    control={<Checkbox checked={this.state.interests.includes(i)} key={i} onChange={this.handleSelect} data-value={i} name="gilad" />}
-                    label="Gilad Gray"
-                  />
-                })}
-
-              </FormGroup>
-
-            </FormControl>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4">
+              {this.state.allInterests.map((element, index) => (
+                <div
+                  data-attribute={`${element}`}
+                  key={index}
+                  id={`choice-${index}`}
+                  onClick={() => this.handleSelect(index)}
+                  className={
+                    this.state.interests.includes(element)
+                      ? "text-green-300"
+                      : "text-red-900"
+                  }
+                >
+                  {element}
+                </div>
+              ))}
+            </div>
           </Container>
         </Layout>
       </React.Fragment>
