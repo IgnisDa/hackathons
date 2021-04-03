@@ -20,10 +20,10 @@ def induct_view(request):
     data = json.loads(request.body.decode())
     interests = data["interests"]
     possible_channels = []
-    possible_channels = [
-        [j for j in set(models.Interest.objects.get(name=i).channels.all())]
-        for i in interests
-    ]
+    for i in interests:
+        for j in set(models.Interest.objects.get(name=i).channels.all()):
+            possible_channels.append(j.name)
+
     print(possible_channels)
     channel = utils.most_frequent((possible_channels))
     print(possible_channels)
