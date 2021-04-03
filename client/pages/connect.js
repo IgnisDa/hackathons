@@ -69,8 +69,8 @@ export default class ConnectView extends React.Component {
     return (
       <React.Fragment>
         <Layout short>
-          <div className="flex flex-col items-center justify-center h-screen p-10 px-10">
-            <div>
+          <div className="flex flex-col items-center justify-center h-screen w-full">
+            <div className="w-4/5">
               <form className="flex-none w-full">
                 <TextField
                   id="outlined-basic"
@@ -87,7 +87,7 @@ export default class ConnectView extends React.Component {
                   autoComplete="off"
                 />
               </form>
-              <div className="flex flex-wrap justify-center flex-grow overflow-auto h-2/3 sm:h-auto">
+              <div className="flex flex-wrap justify-center flex-grow overflow-auto h-2/3 sm:h-auto w-full">
                 {this.state.allInterests.map((element, index) => (
                   <div
                     key={index}
