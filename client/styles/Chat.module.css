@@ -6,3 +6,7 @@
 .scroll::-webkit-scrollbar-thumb {
   @apply rounded-lg bg-spotify-green;
 }
+
+.smoothScroll {
+  scroll-behavior: smooth;
+}
