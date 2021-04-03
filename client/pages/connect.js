@@ -60,11 +60,7 @@ export default class ConnectView extends React.Component {
         interests: interests,
       })
       .then((res) => {
-
-        location.href = `/chat/${res['data']['channel']}`;
-
-        console.log(res);
-
+        location.href = `/chat/${res["data"]["channel"]}`;
       });
     localStorage.setItem("username", this.state.username);
   };
@@ -73,13 +69,8 @@ export default class ConnectView extends React.Component {
     return (
       <React.Fragment>
         <Layout short>
-
-          <div className="flex flex-col items-center justify-center h-screen w-full">
-            <div className="w-4/5">
-
           <div className="flex flex-col items-center justify-center h-screen p-10 px-10">
             <div>
-
               <form className="flex-none w-full">
                 <TextField
                   id="outlined-basic"
@@ -96,9 +87,6 @@ export default class ConnectView extends React.Component {
                   autoComplete="off"
                 />
               </form>
-
-              <div className="flex flex-wrap justify-center flex-grow overflow-auto h-2/3 sm:h-auto w-full">
-
               <div className="flex flex-wrap justify-center flex-grow overflow-auto h-2/3 sm:h-auto">
                 {this.state.allInterests.map((element, index) => (
                   <div
