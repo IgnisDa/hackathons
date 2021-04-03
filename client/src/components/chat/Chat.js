@@ -3,6 +3,7 @@ import Avatar from "@material-ui/core/Avatar";
 import TextField from "@material-ui/core/TextField";
 import WebSocketInstance from "../../websocket.js";
 import Typography from "@material-ui/core/Typography";
+import styles from "../../../styles/Chat.module.css";
 
 class Chat extends React.Component {
   constructor(props) {
@@ -17,7 +18,7 @@ class Chat extends React.Component {
         this.setMessages.bind(this),
         this.addMessage.bind(this)
       );
-      WebSocketInstance.fetchMessages(localStorage.getItem('channel'));
+      WebSocketInstance.fetchMessages(localStorage.getItem("channel"));
     });
   }
 
@@ -88,7 +89,9 @@ class Chat extends React.Component {
             alt={`${message.author}-image`}
           />
           <div>
-            <div className="text-justify">{message.content}</div>
+            <div className="text-xs text-justify md:text-base lg:text-lg sm:text-sm">
+              {message.content}
+            </div>
             <small
               className={message.author === currentUser ? "sent" : "replies"}
             >
@@ -104,7 +107,7 @@ class Chat extends React.Component {
     const messages = this.state.messages;
     return (
       <main id="all-chats" className="flex items-center h-screen">
-        <div className="flex flex-col items-center justify-center w-full py-3 h-4/6">
+        <div className="flex flex-col items-center justify-center w-full py-3 h-5/6">
           <Typography
             variant="h4"
             className="py-4 tracking-widest underline capitalize"
@@ -114,7 +117,7 @@ class Chat extends React.Component {
           <div className="flex flex-col flex-grow w-4/5 h-full">
             <ul
               id="chat-log"
-              className="flex-grow w-full overflow-auto md:px-10"
+              className={`flex-grow w-full overflow-auto px-3 sm:px-7 md:px-10 ${styles.log}`}
             >
               {messages && this.renderMessages(messages)}
             </ul>
