@@ -1,5 +1,6 @@
 import React from "react";
 import Avatar from "@material-ui/core/Avatar";
+import TextField from "@material-ui/core/TextField";
 import WebSocketInstance from "../../websocket.js";
 
 class Chat extends React.Component {
@@ -70,7 +71,7 @@ class Chat extends React.Component {
       <div
         key={message.id}
         id={message.id}
-        className={`flex ${
+        className={`flex my-5 px-10 ${
           message.author === currentUser ? "justify-end" : "reply"
         }`}
       >
@@ -103,23 +104,26 @@ class Chat extends React.Component {
     const messages = this.state.messages;
     return (
       <main id="all-chats" className="flex items-center h-screen">
-        <div className="flex flex-col items-center justify-center w-full py-3 h-5/6">
-          <div className="flex flex-col flex-grow w-4/5 space-y-5 overflow-auto md:w-3/5">
-            <ul id="chat-log">{messages && this.renderMessages(messages)}</ul>
-          </div>
-          <div className="flex-none">
+        <div className="flex flex-col items-center justify-center w-full py-3 h-4/6">
+          <div className="flex flex-col flex-grow w-4/5 h-full">
+            <ul id="chat-log" className="flex-grow overflow-auto">
+              {messages && this.renderMessages(messages)}
+            </ul>
             <form onSubmit={this.sendMessageHandler}>
-              <div>
-                <input
-                  onChange={this.messageChangeHandler}
-                  value={this.state.message}
-                  required
-                  type="text"
-                  placeholder="Write your message..."
-                  className="text-black"
-                />
-                <button className=""></button>
-              </div>
+              <TextField
+                id="outlined-basic"
+                onChange={this.messageChangeHandler}
+                label="Send message"
+                variant="standard"
+                value={this.state.message}
+                required
+                type="text"
+                placeholder="Write your message..."
+                className="flex-none text-black"
+                fullWidth
+                margin="normal"
+                autoComplete="off"
+              />
             </form>
           </div>
         </div>
