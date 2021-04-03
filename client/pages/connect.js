@@ -4,6 +4,7 @@ import TextField from "@material-ui/core/TextField";
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
 import fetch from "node-fetch";
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import { HOST_URL } from "../settings";
 import axios from "axios";
 
@@ -69,8 +70,8 @@ export default class ConnectView extends React.Component {
     return (
       <React.Fragment>
         <Layout short>
-          <Container className="flex flex-col h-screen">
-            <form className="flex-none">
+          <Container className="flex flex-col h-screen p-10 px-10 flex items-center justify-content-center">
+            <form className="flex-none w-full ">
               <TextField
                 id="outlined-basic"
                 label="Username"
@@ -108,7 +109,7 @@ export default class ConnectView extends React.Component {
                 </div>
               ))}
             </div>
-            <Button onClick={this.submitInterests}>Next</Button>
+            <Button variant="contained" color="primary" endIcon={<ArrowForwardIosIcon/>} onClick={this.submitInterests} className="w-full">Next</Button>
           </Container>
         </Layout>
       </React.Fragment>
