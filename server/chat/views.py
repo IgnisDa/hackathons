@@ -24,7 +24,7 @@ def induct_view(request):
         for j in set(models.Interest.objects.get(name=i).channels.all()):
             possible_channels.append(j.name)
 
-    if len(possible_channels) == 0:
+    if not possible_channels:
         channel = random.choice(models.Channel.objects.all())
         for i in interests:
             channel.interests.add(models.Interest.objects.get(name=i))
