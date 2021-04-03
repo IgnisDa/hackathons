@@ -47,6 +47,14 @@ export default class ConnectView extends React.Component {
 
   submitInterests = () => {
     const interests = this.state.interests;
+    if (!this.state.username) {
+      alert("Please enter a username first");
+      return;
+    }
+    if (this.state.interests.length < 1) {
+      alert("You need to select at least one interest");
+      return;
+    }
     axios
       .post(`${HOST_URL}/chat/induct/`, {
         interests: interests,
@@ -54,6 +62,7 @@ export default class ConnectView extends React.Component {
       .then((res) => {
         console.log(res);
       });
+    localStorage.setItem("username", this.state.username);
   };
 
   render() {
