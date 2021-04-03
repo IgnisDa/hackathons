@@ -8,7 +8,10 @@ from .models import Message, Channel
 
 class ChatConsumer(WebsocketConsumer):
     def fetch_messages(self, data):
-        messages = Message.objects.get_last_30_messages()
+        try:
+            messages = Channel.objects.get(name=data['channelname']).messages.all()
+        except:
+            messages = Message.objects.get_last_30_messages()
         content = {"command": "messages", "messages": self.messages_to_json(messages)}
         self.send_message(content)
 
@@ -18,7 +21,7 @@ class ChatConsumer(WebsocketConsumer):
             message = Message.objects.create(author=data["from"], content=data["message"], channel=channel)
         except:
             #print(data['channel'])
-            channel = Channel.objects.create(name=data["channel"])
+            #channel = Channel.objects.create(name=data["channel"])
             message = Message.objects.create(author=data["from"], content=data["message"])
 
 
