@@ -2,7 +2,7 @@ import React from "react";
 import Avatar from "@material-ui/core/Avatar";
 import TextField from "@material-ui/core/TextField";
 import WebSocketInstance from "../../websocket.js";
-import Typography from '@material-ui/core/Typography'
+import Typography from "@material-ui/core/Typography";
 
 class Chat extends React.Component {
   constructor(props) {
@@ -72,30 +72,29 @@ class Chat extends React.Component {
       <div
         key={message.id}
         id={message.id}
-        className={`flex my-5 px-10 ${
+        className={`flex my-5  ${
           message.author === currentUser ? "justify-end" : "justify-start"
         }`}
       >
         <div
-          className={`flex space-x-3 ${
+          className={`flex justify-between space-x-2 bg-red-900 w-4/5 sm:w-3/5 md:w-2/5 rounded-xl p-3 shadow-2xl ${
             message.author === currentUser
-              ? "flex-row-reverse space-x-reverse"
-              : "flex-row"
+              ? "flex-row-reverse space-x-reverse bg-blue-900"
+              : "flex-row bg-indigo-900"
           }`}
         >
           <Avatar
             src={`https://placedog.net/500?id=${message.author}`}
             alt={`${message.author}-image`}
           />
-          <p>
-            {message.content}
-            <br />
+          <div>
+            <div className="text-justify">{message.content}</div>
             <small
               className={message.author === currentUser ? "sent" : "replies"}
             >
               {this.getTime(message.timestamp)} minutes ago
             </small>
-          </p>
+          </div>
         </div>
       </div>
     ));
@@ -104,34 +103,40 @@ class Chat extends React.Component {
   render() {
     const messages = this.state.messages;
     return (
-
-        <main id="all-chats" className="flex items-center h-screen">
-          <Typography variant="h5">{this.props.roomName}</Typography>
-          <div className="flex flex-col items-center justify-center w-full py-3 h-4/6">
-            <div className="flex flex-col flex-grow w-4/5 h-full">
-              <ul id="chat-log" className="flex-grow overflow-auto">
-                {messages && this.renderMessages(messages)}
-              </ul>
-              <form onSubmit={this.sendMessageHandler}>
-                <TextField
-                  id="outlined-basic"
-                  onChange={this.messageChangeHandler}
-                  label="Send message"
-                  variant="standard"
-                  value={this.state.message}
-                  required
-                  type="text"
-                  placeholder="Write your message..."
-                  className="flex-none text-black"
-                  fullWidth
-                  margin="normal"
-                  autoComplete="off"
-                />
-              </form>
-            </div>
+      <main id="all-chats" className="flex items-center h-screen">
+        <div className="flex flex-col items-center justify-center w-full py-3 h-4/6">
+          <Typography
+            variant="h4"
+            className="py-4 tracking-widest underline capitalize"
+          >
+            {this.props.roomName}
+          </Typography>
+          <div className="flex flex-col flex-grow w-4/5 h-full">
+            <ul
+              id="chat-log"
+              className="flex-grow w-full overflow-auto md:px-10"
+            >
+              {messages && this.renderMessages(messages)}
+            </ul>
+            <form onSubmit={this.sendMessageHandler}>
+              <TextField
+                id="outlined-basic"
+                onChange={this.messageChangeHandler}
+                label="Send message"
+                variant="standard"
+                value={this.state.message}
+                required
+                type="text"
+                placeholder="Write your message..."
+                className="flex-none text-black"
+                fullWidth
+                margin="normal"
+                autoComplete="off"
+              />
+            </form>
           </div>
-        </main>
-
+        </div>
+      </main>
     );
   }
 }
