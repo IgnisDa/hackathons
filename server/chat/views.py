@@ -38,7 +38,7 @@ def induct_view(request):
                 channel_obj.interests.add(models.Interest.objects.get(name=i))
                 channel_obj.save()
 
-    return JsonResponse({channel: channel})
+    return JsonResponse({"channel": channel})
 
 
 def get_all_interests_view(request):
