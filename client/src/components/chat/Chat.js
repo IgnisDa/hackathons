@@ -11,6 +11,7 @@ class Chat extends React.Component {
     this.state = {
       message: "",
       messages: [],
+      username: "",
     };
 
     this.waitForSocketConnection(() => {
@@ -20,6 +21,16 @@ class Chat extends React.Component {
       );
       WebSocketInstance.fetchMessages(localStorage.getItem("channel"));
     });
+  }
+
+  componentDidMount() {
+    const username = localStorage.getItem("username");
+    if (!username) {
+      window.location.replace("/");
+      console.log("user not set, please login first");
+    } else {
+      this.setState({ username: username });
+    }
   }
 
   waitForSocketConnection(callback) {
@@ -52,7 +63,7 @@ class Chat extends React.Component {
   sendMessageHandler = (e) => {
     e.preventDefault();
     const messageObject = {
-      from: "admin",
+      from: this.state.username,
       content: this.state.message,
     };
     WebSocketInstance.newChatMessage(messageObject);
@@ -68,7 +79,7 @@ class Chat extends React.Component {
   };
 
   renderMessages = (messages) => {
-    const currentUser = "admin";
+    const currentUser = this.state.username;
     return messages.map((message, i) => (
       <div
         key={message.id}
