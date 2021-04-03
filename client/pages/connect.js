@@ -60,7 +60,7 @@ export default class ConnectView extends React.Component {
         interests: interests,
       })
       .then((res) => {
-        console.log(res);
+        location.href = `/chat/${res['data']['channel']}`;
       });
     localStorage.setItem("username", this.state.username);
   };
