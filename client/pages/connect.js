@@ -69,8 +69,8 @@ export default class ConnectView extends React.Component {
     return (
       <React.Fragment>
         <Layout short>
-          <Container>
-            <form>
+          <Container className="flex flex-col h-screen">
+            <form className="flex-none">
               <TextField
                 id="outlined-basic"
                 label="Username"
@@ -86,20 +86,25 @@ export default class ConnectView extends React.Component {
                 autoComplete="off"
               />
             </form>
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
+            <div className="flex flex-wrap flex-grow">
               {this.state.allInterests.map((element, index) => (
                 <div
-                  data-attribute={`${element}`}
                   key={index}
                   id={`choice-${index}`}
-                  onClick={() => this.handleSelect(index)}
-                  className={`cursor-pointer border ${
-                    this.state.interests.includes(element)
-                      ? "text-green-300"
-                      : "text-red-900"
-                  }`}
+                  className="w-full p-2 sm:p-4 sm:w-1/2 md:w-1/3"
                 >
-                  {element}
+                  <div>
+                    <div
+                      onClick={() => this.handleSelect(index)}
+                      className={`cursor-pointer h-10 sm:h-20 justify-center items-center flex rounded-lg transition-colors duration-700 ${
+                        this.state.interests.includes(element)
+                          ? "bg-paper"
+                          : "bg-paperLight"
+                      }`}
+                    >
+                      {element}
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
