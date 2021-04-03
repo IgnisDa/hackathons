@@ -17,7 +17,7 @@ class Chat extends React.Component {
         this.setMessages.bind(this),
         this.addMessage.bind(this)
       );
-      WebSocketInstance.fetchMessages(this.props.currentUser);
+      WebSocketInstance.fetchMessages(localStorage.getItem('channel'));
     });
   }
 
