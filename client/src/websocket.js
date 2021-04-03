@@ -1,3 +1,5 @@
+import { SOCKET_URL } from "../settings";
+
 class WebSocketService {
   static instance = null;
   callbacks = {};
@@ -14,11 +16,11 @@ class WebSocketService {
   }
 
   connect() {
-    let chatUrl = 'any';
-    if (localStorage.getItem('channel') !== undefined){
-      chatUrl = localStorage.getItem('channel');
+    let chatUrl = "any";
+    if (localStorage.getItem("channel") !== undefined) {
+      chatUrl = localStorage.getItem("channel");
     }
-    const path = `ws://127.0.0.1:8000/ws/chat/${chatUrl}/`;
+    const path = `${SOCKET_URL}/ws/chat/${chatUrl}/`;
     console.log(path);
     this.socketRef = new WebSocket(path);
     this.socketRef.onopen = () => {
@@ -64,7 +66,7 @@ class WebSocketService {
       command: "new_message",
       from: message.from,
       message: message.content,
-      channel: localStorage.getItem('channel')
+      channel: localStorage.getItem("channel"),
     });
   }
 
