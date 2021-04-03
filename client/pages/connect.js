@@ -87,7 +87,7 @@ export default class ConnectView extends React.Component {
                   autoComplete="off"
                 />
               </form>
-              <div className="flex flex-wrap flex-grow overflow-auto h-2/3 sm:h-auto">
+              <div className="flex flex-wrap justify-center flex-grow overflow-auto h-2/3 sm:h-auto">
                 {this.state.allInterests.map((element, index) => (
                   <div
                     key={index}
