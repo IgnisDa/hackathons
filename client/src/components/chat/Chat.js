@@ -1,5 +1,4 @@
 import React from "react";
-import Avatar from "@material-ui/core/Avatar";
 import TextField from "@material-ui/core/TextField";
 import WebSocketInstance from "../../websocket.js";
 import Typography from "@material-ui/core/Typography";
