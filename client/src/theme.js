@@ -1,11 +1,11 @@
 import { createMuiTheme, responsiveFontSizes } from "@material-ui/core/styles";
 
-let colorOne = "#66FCF1";
-let colorTwo = "#fff";
-let colorThree = "#1F2833";
-let colorFour = "#45A29E";
-let bg = "#202225";
-let paper = "rgba(31, 35, 51, 0.95)";
+let colorOne = "#EE4CFC";
+let colorTwo = "#E3AFBC";
+let colorThree = "#5D001E";
+let colorFour = "#E3E2DF";
+let bg = "#5D001E";
+let paper = "rgba(154, 23, 80, 0.3)";
 
 let theme = createMuiTheme({
   palette: {
