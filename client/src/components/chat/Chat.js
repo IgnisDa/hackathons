@@ -58,57 +58,72 @@ class Chat extends React.Component {
     });
   };
 
+  getTime = (time) => {
+    return Math.round(
+      (new Date().getTime() - new Date(time).getTime()) / 60000
+    );
+  };
+
   renderMessages = (messages) => {
     const currentUser = "admin";
     return messages.map((message, i) => (
-      <li
+      <div
         key={message.id}
-        className={message.author === currentUser ? "sent" : "replies"}
+        id={message.id}
+        className={`flex ${
+          message.author === currentUser ? "justify-end" : "reply"
+        }`}
       >
-        <Avatar src="https://placedog.net/500" alt="pupper" />
-        <p>
-          {message.content}
-          <br />
-          <small
-            className={message.author === currentUser ? "sent" : "replies"}
-          >
-            {Math.round(
-              (new Date().getTime() - new Date(message.timestamp).getTime()) /
-                60000
-            )}{" "}
-            minutes ago
-          </small>
-        </p>
-      </li>
+        <div
+          className={`flex space-x-3 ${
+            message.author === currentUser
+              ? "flex-row-reverse space-x-reverse"
+              : "flex-row"
+          }`}
+        >
+          <Avatar
+            src={`https://placedog.net/500?id=${message.author}`}
+            alt={`${message.author}-image`}
+          />
+          <p>
+            {message.content}
+            <br />
+            <small
+              className={message.author === currentUser ? "sent" : "replies"}
+            >
+              {this.getTime(message.timestamp)} minutes ago
+            </small>
+          </p>
+        </div>
+      </div>
     ));
   };
 
   render() {
     const messages = this.state.messages;
     return (
-      <div id="frame">
-        <div className="messages">
-          <ul id="chat-log">{messages && this.renderMessages(messages)}</ul>
+      <main id="all-chats" className="flex items-center h-screen">
+        <div className="flex flex-col items-center justify-center w-full py-3 h-5/6">
+          <div className="flex flex-col flex-grow w-4/5 space-y-5 overflow-auto md:w-3/5">
+            <ul id="chat-log">{messages && this.renderMessages(messages)}</ul>
+          </div>
+          <div className="flex-none">
+            <form onSubmit={this.sendMessageHandler}>
+              <div>
+                <input
+                  onChange={this.messageChangeHandler}
+                  value={this.state.message}
+                  required
+                  type="text"
+                  placeholder="Write your message..."
+                  className="text-black"
+                />
+                <button className=""></button>
+              </div>
+            </form>
+          </div>
         </div>
-        <div className="">
-          <form onSubmit={this.sendMessageHandler}>
-            <div className="wrap">
-              <input
-                onChange={this.messageChangeHandler}
-                value={this.state.message}
-                required
-                id="chat-message-input"
-                type="text"
-                placeholder="Write your message..."
-                className="text-black"
-              />
-              <button id="chat-message-submit" className="submit">
-                <i className="fa fa-paper-plane" aria-hidden="true"></i>
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
+      </main>
     );
   }
 }
