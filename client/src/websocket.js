@@ -64,6 +64,7 @@ class WebSocketService {
       command: "new_message",
       from: message.from,
       message: message.content,
+      channel: localStorage.getItem('channel')
     });
   }
 
