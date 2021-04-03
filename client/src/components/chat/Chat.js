@@ -84,30 +84,36 @@ class Chat extends React.Component {
       <div
         key={message.id}
         id={message.id}
-        className={`flex my-5  ${
+        className={`my-5 flex flex-col ${
           message.author === currentUser ? "justify-end" : "justify-start"
         }`}
       >
-        <div
-          className={`flex justify-between space-x-2 bg-red-900 w-4/5 sm:w-3/5 md:w-2/5 rounded-xl p-3 shadow-2xl ${
-            message.author === currentUser
-              ? "flex-row-reverse space-x-reverse bg-blue-900"
-              : "flex-row bg-indigo-900"
-          }`}
-        >
-          <Avatar
-            src={`https://placedog.net/500?id=${message.author}`}
-            alt={`${message.author}-image`}
-          />
-          <div>
-            <div className="text-xs text-justify md:text-base lg:text-lg sm:text-sm">
-              {message.content}
+        <div className="inline-block">
+          <div className="inline-block px-3 py-1 bg-purple-800 rounded-t-lg">
+            {message.author}
+          </div>
+          <div
+            className={`flex justify-between space-x-2 sm:space-x-3 md:space-x-5 bg-red-900 w-4/5 sm:w-3/5 md:w-2/5 rounded-r-xl p-3 shadow-2xl ${
+              message.author === currentUser
+                ? "flex-row-reverse space-x-reverse bg-blue-900"
+                : "flex-row bg-indigo-900"
+            }`}
+          >
+            <Avatar
+              src={`https://placedog.net/500?id=${message.author}`}
+              alt={`${message.author}-image`}
+              className="flex-none "
+            />
+            <div className="flex-grow">
+              <div className="text-xs text-justify md:text-base lg:text-lg sm:text-sm">
+                {message.content}
+              </div>
+              <small
+                className={message.author === currentUser ? "sent" : "replies"}
+              >
+                {this.getTime(message.timestamp)} minutes ago
+              </small>
             </div>
-            <small
-              className={message.author === currentUser ? "sent" : "replies"}
-            >
-              {this.getTime(message.timestamp)} minutes ago
-            </small>
           </div>
         </div>
       </div>
