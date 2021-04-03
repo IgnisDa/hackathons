@@ -16,7 +16,7 @@ export default function Banner() {
       </Typography>
       <Container>
         <Typography
-          variant="p"
+          component="div"
           align="center"
           className="sm:text-xl md:text-2xl xl:text-xl"
         >
