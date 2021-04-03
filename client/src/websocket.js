@@ -55,8 +55,8 @@ class WebSocketService {
     }
   }
 
-  fetchMessages(username) {
-    this.sendMessage({ command: "fetch_messages", username: username });
+  fetchMessages(channelname) {
+    this.sendMessage({ command: "fetch_messages", channelname: channelname });
   }
 
   newChatMessage(message) {
