@@ -72,7 +72,7 @@ class Chat extends React.Component {
         key={message.id}
         id={message.id}
         className={`flex my-5 px-10 ${
-          message.author === currentUser ? "justify-end" : "reply"
+          message.author === currentUser ? "justify-end" : "justify-start"
         }`}
       >
         <div
