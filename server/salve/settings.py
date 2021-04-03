@@ -1,6 +1,8 @@
 import os
 from pathlib import Path
 
+import dj_database_url
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -9,7 +11,6 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "dummy")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DJANGO_DEBUG", False) == "1"
-DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -27,7 +28,7 @@ INSTALLED_APPS = [
     # django addons
     "corsheaders",
     "channels",
-    "ariadne.contrib.django"
+    "ariadne.contrib.django",
 ]
 
 MIDDLEWARE = [
@@ -119,22 +120,24 @@ DATABASES = {
 }
 STATIC_ROOT = BASE_DIR / "static"
 MEDIA_ROOT = "media"
+
 # production only settings
 if not DEBUG:
     PASSWORD_HASHERS.insert(
         0,
         "django.contrib.auth.hashers.Argon2PasswordHasher",
     )
+    db_from_env = dj_database_url.config(conn_max_age=500)
+    DATABASES["default"].update(db_from_env)
+    ALLOWED_HOSTS.append(".herokuapp.com")
+
 # development only settings
 if DEBUG:
     ALLOWED_HOSTS += ["*"]
     CORS_ALLOW_ALL_ORIGINS = True
     INSTALLED_APPS.append("django_extensions")
     SHELL_PLUS = "ipython"
+
 ASGI_APPLICATION = "salve.asgi.application"
 
-CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "channels.layers.InMemoryChannelLayer"
-    }
-}
+CHANNEL_LAYERS = {"default": {"BACKEND": "channels.layers.InMemoryChannelLayer"}}
