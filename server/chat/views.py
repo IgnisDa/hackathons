@@ -1,5 +1,5 @@
 import json
-
+import random
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
@@ -24,9 +24,20 @@ def induct_view(request):
         for j in set(models.Interest.objects.get(name=i).channels.all()):
             possible_channels.append(j.name)
 
-    print(possible_channels)
-    channel = utils.most_frequent((possible_channels))
-    print(possible_channels)
+    if len(possible_channels) == 0:
+        channel = random.choice(models.Channel.objects.all())
+        for i in interests:
+            channel.interests.add(models.Interest.objects.get(name=i))
+            channel.save()
+        channel = channel.name
+    else:
+        channel = utils.most_frequent((possible_channels))
+        channel_obj = models.Channel.objects.get(name=channel)
+        for i in interests:
+            if i not in channel_obj.interests.all():
+                channel_obj.interests.add(models.Interest.objects.get(name=i))
+                channel_obj.save()
+
     return JsonResponse({channel: channel})
 
 
