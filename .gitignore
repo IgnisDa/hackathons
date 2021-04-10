@@ -331,7 +331,7 @@ dist
 *.box
 
 ### vscode ###
-.vscode/*
+**/.vscode/*
 
 ### Vuejs ###
 # Recommended template: Node.gitignore
