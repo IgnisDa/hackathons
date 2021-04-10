@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+# This script will be used to install dependencies for all the salve applications
+
+# setup the git identities
+git config --global user.name "Diptesh Choudhuri"
+git config --global user.email "ignisda2001@gmail.com"
+
+# remove the default fish shell prompt
+set fish_greeting
+
+# install Gitzer to the system
+curl -sSL https://raw.githubusercontent.com/IgnisDa/Gitzer/main/get-gitzer.py | python3
+
+# replace the default file content viewer (cat) with bat
+sudo ln -s /usr/bin/batcat /usr/bin/bat
+# load all my system configs
+rm -rf $HOME/.config
+git clone https://github.com/IgnisDa/linux-configs.git $HOME/.config
+
+
+# load the custom scripts and make only files which contain `~ADD_SCRIPT~` in them
+# executable
+CUSTOM_SCRIPTS_DIR="$HOME/custom-scripts"
+git clone https://github.com/IgnisDa/custom-scripts.git $CUSTOM_SCRIPTS_DIR
+for file in "$CUSTOM_SCRIPTS_DIR"/*; do
+    if grep -Fq "~ADD_SCRIPT~" "$file"; then
+        chmod +x "$file"
+    fi
+done
+
+# use the starship prompt
+curl -fsSL https://starship.rs/install.sh > /tmp/install.sh
+chmod +x /tmp/install.sh
+/tmp/install.sh --force
+
+# rust installer
+curl https://sh.rustup.rs -sSf | sh -s -- -y
+
+# set the default interactive shell as fish
+echo "if [[ \$(ps --no-header --pid=\$PPID --format=cmd) != \"fish\" ]]" >> $HOME/.bashrc
+echo "then" >> $HOME/.bashrc
+echo "   exec fish" >> $HOME/.bashrc
+echo "fi" >> $HOME/.bashrc
+
+# directory path of django development server
+backend_folder="server"
+# directory path of nuxt development server
+frontend_folder="client"
+
+
+# we prefer not to keep the virtual environment as a part of the synced directory for
+# performance reasons, hence we create a folder to store all of them and use symbolic links
+# for the project purposes
+# first we create a directory where our custom scripts are stored
+cd "$HOME/salve"
+# install the dependencies for the django application
+cd "$backend_folder"
+poetry config virtualenvs.in-project "true"
+eval "$CUSTOM_SCRIPTS_DIR/setup"
+
+# change to the project folder
+cd "$HOME/salve"
+# install the dependencies for the frontend application
+cd "$frontend_folder"
+eval "$CUSTOM_SCRIPTS_DIR/setup"
