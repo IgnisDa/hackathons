@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 # This script will be used to spin up the development servers for all the salve applications
 
-# change to the project folder
-cd "$HOME/salve"
-
 # directory path of django development server
 backend_folder="server"
 # directory path of nuxt development server
